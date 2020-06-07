@@ -1,0 +1,80 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+p,
+a {
+  text-align: center;
+}
+
+div.button-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1.display-4 {
+  font-size: 36px;
+}
+
+div.jumbotron {
+  margin-bottom: 30px;
+}
+
+#scatter-div,
+#barplot-div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  justify-content: space-around;
+}
+
+.tick text {
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.tick line {
+  stroke: #999;
+  opacity: 0.2;
+}
+
+br {
+  content: "A" !important;
+  display: block !important;
+  margin-bottom: 7.5px !important;
+}
+/* hr {
+  border: 1px solid;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-color: white;
+  border-radius: 5px;
+  opacity: 1;
+  margin-top: 0;
+  margin-bottom: 0;
+} */
+
+#scatter-y-axis-label {
+  font-family: "Montserrat", sans-serif;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 60px;
+  padding: 2px;
+  font: 10px;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+#select-button.form-control {
+  width: 215px;
+  margin-right: 50px;
+}
