@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COVID-19</title>
+    <link rel="shortcut icon" href="media/covid-icon.png" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Merriweather:wght@300&family=Montserrat&family=Sacramento&display=swap"
@@ -14,10 +15,51 @@
 </head>
 
 <body>
+
+
+    <!-- Page header -->
+    <!-- <div class="jumbotron" style="padding-top: 2rem; padding-bottom: 1rem">
+
+        <h1 class="display-4" id="scatter-text"></h1>
+        <div class="button-div"><a class="btn btn-primary btn-lg" href="https://github.com/nytimes/covid-19-data"
+                role="button" target="_blank">
+                Link to the data
+            </a></div>
+    </div> -->
+    <!-- navbar -->
+    <div id="navbarDiv">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <!-- Refresh button -->
+            <div class="navbarHeader">
+                <a class="navbar-brand" onClick="window.location.reload();" id="refreshButton" href="#">
+                    <img src="media/covid-icon.png" width="125" height="125" alt=""> COVID-19 Visualizations</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- <li>
+                        <div class="button-div">
+                            <a class="btn btn-primary btn-lg" href="https://github.com/nytimes/covid-19-data"
+                                role="button" target="_blank">
+                                Link to the data
+                            </a>
+                        </div>
+                    </li> -->
+                    <li>
+                        <div id="state-select-button-container"></div>
+                    </li>
+                    <li>
+                        <div id="county-select-button-container"></div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
     <!-- GitHub corner -->
     <svg width="80" height="80" viewBox="0 0 250 250"
         style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-        <a href="https://github.com/Oliver-BE" target="_blank" class="github-corner" aria-label="View source on Github">
+        <a href="https://github.com/Oliver-BE/covid-d3" target="_blank" class="github-corner"
+            aria-label="View source on Github">
             <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
             <path style="fill:white;"
                 d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
@@ -28,21 +70,7 @@
         </a>
     </svg>
 
-    <!-- Page header -->
-    <div class="jumbotron" style="padding-top: 2rem; padding-bottom: 1rem">
-
-        <h1 class="display-4" id="scatter-text"></h1>
-        <!-- <hr class="my-4"> -->
-        <!-- <p class="lead">Hover over a data point to see exact number of deaths</p> -->
-        <div class="button-div"><a class="btn btn-primary btn-lg" href="https://github.com/nytimes/covid-19-data"
-                role="button" target="_blank">
-                Link to the data
-            </a></div>
-
-
-    </div>
-
-    <div id="scatter-div"></div>
+    <div id="scatterDiv"></div>
 
     <!-- Actual content
     <div class="container-fluid">
@@ -56,7 +84,18 @@
         </div>
     </div> -->
 
+    <!-- Load scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="sorted_counties.js"></script>
     <script src="scatter.js"></script>
     <!-- <script src="barchart.js"></script> -->
 </body>
