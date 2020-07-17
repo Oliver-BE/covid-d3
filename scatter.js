@@ -34,7 +34,9 @@
 // constant global variables
 // const width = 1000;
 // const margin = 150;
-let margin = { top: 150, right: 150, bottom: 150, left: 150 };
+let margin = { top: 150, right: 135, bottom: 150, left: 150 };
+// for phone screens we want the right margin to be dynamic
+margin["right"] = +getComputedStyle(document.body).getPropertyValue("--margin-right");
 const navBarHeight = parseInt(d3.select("#navbarDiv").style("height"), 10);
 const height = window.innerHeight - navBarHeight - margin.top - margin.bottom;
 // const height = 800 - margin.top - margin.bottom;

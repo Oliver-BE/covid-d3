@@ -1,5 +1,6 @@
 :root {
   --x-axis-ticks: 5;
+  --margin-right: 135;
 }
 
 body {
@@ -94,5 +95,6 @@ h1.display-4 {
   
   :root {
     --x-axis-ticks: 5;
+    --margin-right: 35;
   }
 }
