@@ -7,7 +7,6 @@
 // add a footer with links to data
 // add labels to the selection buttons
 // add button to change isStateDataSelected
-///// get dots back on top of the axis
 
 // merge selections like so::
 // var myData = ['A', 'B', 'C', 'D', 'E'];
@@ -34,7 +33,7 @@
 // constant global variables
 // const width = 1000;
 // const margin = 150;
-let margin = { top: 150, right: 135, bottom: 150, left: 150 };
+let margin = { top: 75, right: 135, bottom: 95, left: 150 };
 // for phone screens we want the right margin to be dynamic
 margin["right"] = +getComputedStyle(document.body).getPropertyValue("--margin-right");
 const navBarHeight = parseInt(d3.select("#navbarDiv").style("height"), 10);
@@ -209,7 +208,7 @@ function initializeScatter(originalData) {
     // graph title label 
     svg.append("text")
         .attr("id", "scatter-title")
-        .attr("y", -(margin.top / 2))
+        .attr("y", -(margin.top / 1.5))
         .attr("x", width / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
