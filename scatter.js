@@ -284,8 +284,8 @@ function initializeScatter(originalData) {
         // tooltip message
         tip.html("<i>" + finalDate + "</i>" + "<br/>" +
             "<b>" + d.deaths + " total deaths" + "</b>")
-            .style("left", xScale(d.date) + "px")
-            .style("top", yScale(d.deaths) + margin.top + margin.bottom - 68 + "px");
+            .style("left", xScale(d.date) - 2 + "px")
+            .style("top", yScale(d.deaths) + margin.top + margin.bottom - 13 + "px");
     }
 
     function removeToolTip(d) {
