@@ -33,9 +33,9 @@
 // constant global variables
 // const width = 1000;
 // const margin = 150;
-let margin = { top: 75, right: 135, bottom: 95, left: 150 };
+let margin = { top: 75, right: 135, bottom: 80, left: 150 };
 // for phone screens we want the right margin to be dynamic
-margin["right"] = +getComputedStyle(document.body).getPropertyValue("--margin-right");
+// margin["right"] = +getComputedStyle(document.body).getPropertyValue("--margin-right");
 const navBarHeight = parseInt(d3.select("#navbarDiv").style("height"), 10);
 const height = window.innerHeight - navBarHeight - margin.top - margin.bottom;
 // const height = 800 - margin.top - margin.bottom;
@@ -53,7 +53,8 @@ let earliestDate;
 // let width = parseInt(d3.select('body').style('width'), 10) - margin.right - margin.left;
 let width = window.innerWidth - margin.right - margin.left;
 // this reads the value set in :root in CSS
-let xAxisTicks = +getComputedStyle(document.body).getPropertyValue("--x-axis-ticks");
+// let xAxisTicks = +getComputedStyle(document.body).getPropertyValue("--x-axis-ticks");
+let xAxisTicks = 5;
 let isStateDataSelected = true;
 // initialize state/county
 let currentStateOrCounty;
@@ -64,11 +65,15 @@ else {  currentStateOrCounty = "Cook"; }
 // svg initialization
 let svg = d3.select("#scatterDiv")
     .append("svg")
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("width", width + margin.right + margin.left)
-    .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+    .attr("viewBox", "0 0 " + width + " " + height);
+
+// group to hold all scatterplot elements
+let scatter_elements = svg.append("g").attr("id", "scatter_elements");
+    // .attr("height", height + margin.top + margin.bottom)
+    // .attr("width", width + margin.right + margin.left)
+    // .append("g")
+    // .attr("transform",
+    //       "translate(" + margin.left + "," + margin.top + ")");
 
 // define the div for the tooltip
 let tip = d3.select("#scatterDiv")
@@ -157,12 +162,12 @@ function initializeScatter(originalData) {
     let xScale = d3
         .scaleTime()
         .domain(d3.extent(cleanedData, (d) => { return d.date; }))
-        .range([0, width]);
+        .range([margin["left"], width - margin["right"]]);
 
     let yScale = d3
         .scaleLinear()
         .domain([0, d3.max(cleanedData, (d) => { return +d.deaths; })])
-        .range([height, 0]);
+        .range([height - margin["bottom"], margin["top"]]);
 
     // create and add axes 
     let xAxis = d3
@@ -170,20 +175,20 @@ function initializeScatter(originalData) {
         .scale(xScale)
         .tickPadding(15)
         .ticks(xAxisTicks)
-        .tickSize(-height);
+        .tickSize(-(height - margin["top"] - margin["bottom"]));
 
     let yAxis = d3
         .axisLeft()
         .scale(yScale)
         .tickPadding(10)
         .ticks(yAxisTicks)
-        .tickSize(-width);
+        .tickSize(-(width - margin["left"] - margin["right"]));
 
     // add and format x-axis
-    svg.append("g")
+    scatter_elements.append("g")
         .attr("id", "x-axis")
         // move x axis to the bottom
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + (height - margin["bottom"]) + ")")
         .call(xAxis)
         // rotate labels
         .selectAll("text")
@@ -191,25 +196,26 @@ function initializeScatter(originalData) {
         .style("text-anchor", "end");
 
     // add and format y-axis 
-     svg.append("g")
+     scatter_elements.append("g")
         .attr("id", "y-axis")
+        .attr("transform", "translate(" + margin["left"] + ", 0)")
         .call(yAxis);
 
     // text label for the y axis
-    svg.append("text")
+    scatter_elements.append("text")
         .attr("id", "scatter-y-axis-label")
         .attr("transform", "rotate(-90)")
-        .attr("y", -(margin.left / 1.4))
-        .attr("x", -(height / 2))
+        .attr("y", (margin.left / 1.4))
+        .attr("x", ((height) / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .text("Number of deaths");
     
     // graph title label 
-    svg.append("text")
+    scatter_elements.append("text")
         .attr("id", "scatter-title")
-        .attr("y", -(margin.top / 1.5))
-        .attr("x", width / 2)
+        .attr("y", margin["top"] / 3)
+        .attr("x", (width)/ 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .attr("width", width)
@@ -219,10 +225,10 @@ function initializeScatter(originalData) {
     ////////////////////////////
     // initialize scatterplot //
     ///////////////////////////
-    let scatterPlot = svg.append("g")
+    let scatter_points = scatter_elements.append("g")
         .attr("id", "data-points");
     
-    scatterPlot.selectAll("circle")
+    scatter_points.selectAll("circle")
         .data(cleanedData)
         .enter()
         .append("circle")
@@ -317,12 +323,12 @@ function initializeScatter(originalData) {
             /* var newScatterPlot = scatterPlot
                 .selectAll("circle")
                 .data(updatedData); */
-            var newScatterPlot = svg.select("#data-points")
+            var new_scatter_points = svg.select("#data-points")
                 .selectAll("circle")
                 .data(updatedData);
     
             // update current points
-            newScatterPlot
+            new_scatter_points
                 .transition("current-points-transition")
                 .duration(1000)
                 .attr("cx", (d) => { return xScale(d.date); })
@@ -330,7 +336,7 @@ function initializeScatter(originalData) {
                 .delay((d, i) => { return i * 10; });;
     
             // remove old data points
-            newScatterPlot.exit()
+            new_scatter_points.exit()
                 .transition("old-points-transition")
                 .duration(1000)
                 .attr("r", 0)
@@ -339,7 +345,7 @@ function initializeScatter(originalData) {
                 .delay((d, i) => { return i * 10; });
     
             // add new data points
-            newScatterPlot.enter()
+            new_scatter_points.enter()
                 .append("circle")
                 .on("mouseover", addToolTip)
                 .on("mouseout", removeToolTip)

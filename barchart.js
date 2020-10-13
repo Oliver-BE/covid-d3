@@ -1,11 +1,12 @@
 //
 // bar chart
-// viewbox
+// 
 
 async function makeBar() {
     let svgBar = d3
         .select("#barplot-div")
         .append("svg")
+       //.attr("viewBox", "0 0 " + width + " " + height);
         .attr("width", width)
         .attr("height", height);
     // .append("g")

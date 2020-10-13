@@ -1,7 +1,7 @@
-:root {
+/* :root {
   --x-axis-ticks: 5;
   --margin-right: 135;
-}
+} */
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -84,7 +84,7 @@ h1.display-4 {
   margin: 20px;
 }
 
-@media (max-width: 577px) {
+/* @media (max-width: 577px) {
   #scatter-title {
    font-size: 16px;
   }
@@ -96,5 +96,5 @@ h1.display-4 {
   :root {
     --x-axis-ticks: 5;
     --margin-right: 35;
-  }
+  } */
 }
