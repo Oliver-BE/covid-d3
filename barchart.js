@@ -1,6 +1,6 @@
 //
 // bar chart
-//
+// viewbox
 
 async function makeBar() {
     let svgBar = d3
